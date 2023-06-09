@@ -72,18 +72,19 @@ kemudian ketikkan command ini
 
 
 
-git clone https://github.com/mizzy-123/api-fitrack-laravel.git
+$git clone https://github.com/mizzy-123/api-fitrack-laravel.git
 
 
 
 
 masuk ke folder tempat semua file ini di taruh lewat terminal/command prompt
 kemudiadn ketikkan command ini
-composer update
 
-cp .env.example .env
+$composer update
 
-php artisan key:generate
+$cp .env.example .env
+
+$php artisan key:generate
 
 kemudian ubah didalam .env sesuai dengan database anda
 
