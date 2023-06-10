@@ -25,7 +25,10 @@ class LoginController extends Controller
             $data = User::where('email', $credentials['email'])->get();
             return response()->json([
                 'status' => true,
-                'user' => $data
+                'user' => [
+                    'name' => $data[0]->name,
+                    'email' => $data[0]->email
+                ]
             ]);
         } else {
             return response()->json([
