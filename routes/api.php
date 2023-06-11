@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,3 +24,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/user/login', [LoginController::class, 'authenticate']);
 
 Route::get('/user/logout', [LoginController::class, 'logout']);
+
+Route::post('/user/register', [RegisterController::class, 'store']);
+
+Route::post('/user/image/{user:email}', [UserController::class, 'ImageStore']);
+
+Route::delete('/user/image/{user:email}', [UserController::class, 'ImageDelete']);
