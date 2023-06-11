@@ -34,27 +34,25 @@ class UserController extends Controller
                     'messsage' => 'Gambar gagal di upload'
                 ]);
             }
+        } else {
+            return response()->json([
+                'status' => false,
+                'messsage' => 'Gambar gagal di upload'
+            ]);
         }
     }
 
     public function ImageDelete(User $user)
     {
         if ($user->image != null) {
+            Storage::delete($user->image);
             $user->image = null;
-            $cek = $user->save();
+            $user->save();
 
-            if ($cek) {
-                Storage::delete($user->image);
-                return response()->json([
-                    'status' => true,
-                    'messsage' => 'Gambar berhasil dihapus'
-                ]);
-            } else {
-                return response()->json([
-                    'status' => false,
-                    'message' => 'Gambar gagal dihapus'
-                ]);
-            }
+            return response()->json([
+                'status' => true,
+                'messsage' => 'Gambar berhasil dihapus'
+            ]);
         } else {
             return response()->json([
                 'status' => false,

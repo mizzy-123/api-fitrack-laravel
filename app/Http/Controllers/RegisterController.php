@@ -16,18 +16,26 @@ class RegisterController extends Controller
             'password' => 'required|min:6'
         ]);
 
-        $validated['password'] = Hash::make($validated['password']);
+        if ($request->c_pass == $validated['password']) {
 
-        $user = User::create($validated);
-        if ($user) {
-            return response()->json([
-                'status' => true,
-                'message' => 'Register Berhasil'
-            ]);
+            $validated['password'] = Hash::make($validated['password']);
+
+            $user = User::create($validated);
+            if ($user) {
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Register Berhasil'
+                ]);
+            } else {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Register Gagal'
+                ]);
+            }
         } else {
             return response()->json([
                 'status' => false,
-                'message' => 'Register Gagal'
+                'message' => 'Konfirmasi password salah'
             ]);
         }
     }
