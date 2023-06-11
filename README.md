@@ -25,7 +25,7 @@ Berhasil
 {
 "status" : true,
 "user" : {
-"name" : "xxxxxxx"
+"name" : "xxxxxxx", 
 "email" : "xxxxxxx"
 }
 }
