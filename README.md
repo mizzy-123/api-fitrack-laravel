@@ -19,6 +19,7 @@ kemudian ubah didalam .env sesuai dengan database anda
 ## API Documentation
 
 POST /user/login
+
 Berhasil
 
 {
@@ -36,6 +37,7 @@ Gagal
 }
 
 GET /user/logout
+
 Berhasil
 
 {
@@ -58,6 +60,7 @@ Gagal
 }
 
 POST /user/image/{email}
+
 Berhasil
 
 {
@@ -73,6 +76,7 @@ Gagal
 }
 
 DELETE /user/image/{email}
+
 Berhasil
 
 {
