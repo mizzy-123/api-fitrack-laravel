@@ -16,6 +16,8 @@ $php artisan key:generate
 
 kemudian ubah didalam .env sesuai dengan database anda
 
+buka file .env cari FILESYSTEM_DISK kemudian ubah menjadi FILESYSTEM_DISK=custom
+
 ## API Documentation
 
 https://documenter.getpostman.com/view/27154881/2s93sc5sf5
