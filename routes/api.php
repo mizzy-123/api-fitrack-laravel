@@ -3,6 +3,7 @@
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserDataController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -30,3 +31,9 @@ Route::post('/user/register', [RegisterController::class, 'store']);
 Route::post('/user/image/{user:email}', [UserController::class, 'ImageStore']);
 
 Route::delete('/user/image/{user:email}', [UserController::class, 'ImageDelete']);
+
+Route::post('/user/profil/{user:email}', [UserDataController::class, 'update']);
+
+Route::get('/user/profil/{user:email}', [UserDataController::class, 'show']);
+
+Route::get('/user/profil/image/{user:email}', [UserDataController::class, 'getImage']);

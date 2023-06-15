@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\UserData;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -22,6 +23,8 @@ class RegisterController extends Controller
 
             $user = User::create($validated);
             if ($user) {
+                $userData = new UserData;
+                $user->user_data()->save($userData);
                 return response()->json([
                     'status' => true,
                     'message' => 'Register Berhasil'
