@@ -24,6 +24,8 @@ class AktivitasTanggalanController extends Controller
             $aktivitas->save();
 
             $date->aktivitas()->attach($aktivitas, ['user_id' => $user->id]);
+            // $date->user()->attach($user);
+            $user->tanggalan()->sync($date);
             return response()->json([
                 'status' => true,
                 'message' => 'Berhasil Ditambah'
@@ -40,6 +42,8 @@ class AktivitasTanggalanController extends Controller
             $aktivitas->save();
 
             $newDate->aktivitas()->attach($aktivitas, ['user_id' => $user->id]);
+            // $newDate->user()->attach($user);
+            $user->tanggalan()->sync($newDate);
             return response()->json([
                 'status' => true,
                 'message' => 'Berhasil Ditambah'

@@ -15,4 +15,9 @@ class UserData extends Model
     {
         return $this->belongsTo(User::class, 'id_user');
     }
+
+    // public function jenis_kelamin()
+    // {
+    //     return $this->belongsTo(JenisKelamin::class, 'jeniskelamin_id');
+    // }
 }

@@ -20,4 +20,9 @@ class Tanggalan extends Model
     {
         return $this->belongsToMany(Aktivitas::class, 'aktivitas_tanggalans');
     }
+
+    public function user()
+    {
+        return $this->belongsToMany(User::class, 'user_tanggalans');
+    }
 }

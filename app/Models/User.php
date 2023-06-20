@@ -50,6 +50,16 @@ class User extends Authenticatable
 
     public function tanggalan()
     {
-        return $this->belongsToMany(Tanggalan::class, 'aktivitas_tanggalans');
+        return $this->belongsToMany(Tanggalan::class, 'user_tanggalans');
+    }
+
+    public function makanan()
+    {
+        return $this->belongsToMany(Makanan::class, 'makanan_tanggalans');
+    }
+
+    public function aktivitas()
+    {
+        return $this->belongsToMany(Aktivitas::class, 'aktivitas_tanggalans');
     }
 }
