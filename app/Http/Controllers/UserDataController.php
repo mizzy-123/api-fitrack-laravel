@@ -38,8 +38,9 @@ class UserDataController extends Controller
             if ($user_data->image != null) {
                 Storage::delete($user_data->image);
             }
-            $image = $user_data->image = $request->file('image')->store('image-user');
-            $user_data->image = $image;
+            // $image = $user_data->image = $request->file('image')->store('image-user');
+            // $user_data->image = $image;
+            $user_data->image = $request->file('image')->store('image-user');
         }
 
         $user->name = $request->name;

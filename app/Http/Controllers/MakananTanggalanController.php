@@ -18,6 +18,7 @@ class MakananTanggalanController extends Controller
         if ($date) {
             $makanan = new Makanan;
             $makanan->name = $request->name;
+            $makanan->takaran = $request->takaran;
             $makanan->kalori = $request->kalori;
             $makanan->save();
 
@@ -35,6 +36,7 @@ class MakananTanggalanController extends Controller
 
             $makanan = new Makanan;
             $makanan->name = $request->name;
+            $makanan->takaran = $request->takaran;
             $makanan->kalori = $request->kalori;
             $makanan->save();
 

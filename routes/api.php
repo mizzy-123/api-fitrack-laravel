@@ -5,6 +5,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MakananTanggalanController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ShowAllAktivitasMakananController;
+use App\Http\Controllers\TempatGymController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserDataController;
 use Illuminate\Http\Request;
@@ -47,3 +48,11 @@ Route::post('/tanggal/aktivitas/{user:email}', [AktivitasTanggalanController::cl
 Route::post('/tanggal/makanan/{user:email}', [MakananTanggalanController::class, 'store']);
 
 Route::get('/tanggal/aktivitas/{user:email}', [ShowAllAktivitasMakananController::class, 'show']);
+
+Route::post('/location', [TempatGymController::class, 'store']);
+
+Route::post('/location/{location}', [TempatGymController::class, 'update']);
+
+Route::delete('/location', [TempatGymController::class, 'destroy']);
+
+Route::get('/location', [TempatGymController::class, 'index']);
