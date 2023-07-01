@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('aktivitas', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('repetisi');
-            $table->integer('set');
+            $table->integer('durasi');
+            $table->integer('kalori');
             $table->timestamps();
         });
     }

@@ -19,8 +19,8 @@ class AktivitasTanggalanController extends Controller
         if ($date) {
             $aktivitas = new Aktivitas;
             $aktivitas->name = $request->name;
-            $aktivitas->repetisi = $request->repetisi;
-            $aktivitas->set = $request->set;
+            $aktivitas->durasi = $request->durasi;
+            $aktivitas->kalori = $request->kalori;
             $aktivitas->save();
 
             $date->aktivitas()->attach($aktivitas, ['user_id' => $user->id]);
@@ -37,8 +37,8 @@ class AktivitasTanggalanController extends Controller
 
             $aktivitas = new Aktivitas;
             $aktivitas->name = $request->name;
-            $aktivitas->repetisi = $request->repetisi;
-            $aktivitas->set = $request->set;
+            $aktivitas->durasi = $request->durasi;
+            $aktivitas->kalori = $request->kalori;
             $aktivitas->save();
 
             $newDate->aktivitas()->attach($aktivitas, ['user_id' => $user->id]);

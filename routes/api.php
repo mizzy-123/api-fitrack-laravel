@@ -47,7 +47,11 @@ Route::post('/tanggal/aktivitas/{user:email}', [AktivitasTanggalanController::cl
 
 Route::post('/tanggal/makanan/{user:email}', [MakananTanggalanController::class, 'store']);
 
-Route::get('/tanggal/aktivitas/{user:email}', [ShowAllAktivitasMakananController::class, 'show']);
+Route::get('/all/aktivitas/{user:email}', [ShowAllAktivitasMakananController::class, 'show']);
+
+Route::get('/all/aktivitas/sekarang/{user:email}', [ShowAllAktivitasMakananController::class, 'sekarang']);
+
+Route::get('/all/aktivitas/kemarin/{user:email}', [ShowAllAktivitasMakananController::class, 'kemarin']);
 
 Route::post('/location', [TempatGymController::class, 'store']);
 
