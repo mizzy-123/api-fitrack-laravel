@@ -53,6 +53,6 @@ Route::post('/location', [TempatGymController::class, 'store']);
 
 Route::post('/location/{location}', [TempatGymController::class, 'update']);
 
-Route::delete('/location', [TempatGymController::class, 'destroy']);
+Route::delete('/location/{location}', [TempatGymController::class, 'destroy']);
 
 Route::get('/location', [TempatGymController::class, 'index']);

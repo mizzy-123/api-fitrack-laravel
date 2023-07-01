@@ -60,6 +60,9 @@ class TempatGymController extends Controller
 
     public function destroy(Location $location)
     {
+        if ($location->foto != null) {
+            Storage::delete($location->foto);
+        }
         $location->delete();
         return response()->json([
             'status' => true,
