@@ -50,6 +50,7 @@ class UserDataController extends Controller
         $user_data->b_badan = $request->b_badan;
         $user_data->t_badan = $request->t_badan;
         $user_data->kelamin = $request->kelamin;
+        $user_data->kalori = $request->kalori;
         $user_data->save();
 
         return response()->json([

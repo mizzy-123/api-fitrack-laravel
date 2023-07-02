@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('kelamin')->nullable();
             $table->integer('b_badan')->nullable();
             $table->integer('t_badan')->nullable();
+            $table->integer('kalori')->nullable();
             $table->string('image')->nullable();
             $table->timestamps();
         });
