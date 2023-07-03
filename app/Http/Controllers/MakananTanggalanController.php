@@ -24,7 +24,7 @@ class MakananTanggalanController extends Controller
 
             $date->makanan()->attach($makanan, ['user_id' => $user->id]);
             // $date->user()->attach($user);
-            $user->tanggalan()->sync($date);
+            // $user->tanggalan()->sync($date);
             return response()->json([
                 'status' => true,
                 'message' => 'Berhasil Ditambah'
@@ -42,7 +42,7 @@ class MakananTanggalanController extends Controller
 
             $newDate->makanan()->attach($makanan, ['user_id' => $user->id]);
             // $newDate->user()->attach($user);
-            $user->tanggalan()->sync($newDate);
+            $user->tanggalan()->attach($newDate);
             return response()->json([
                 'status' => true,
                 'message' => 'Berhasil Ditambah'
