@@ -19,7 +19,19 @@ class ShowAllAktivitasMakananController extends Controller
         // $tanggal = $user->tanggalan()->orderBy('tanggal', 'desc')->with('makanan', 'aktivitas')->distinct()->get();
         // $tanggal = Tanggalan::all();
         // $tanggal = Tanggalan::with('makanan:name,takaran,kalori', 'aktivitas')->get();
-        $tanggal = $user->tanggalan()->with('makanan:name,takaran,kalori', 'aktivitas:name,durasi,kalori')->get();
+        // $tanggal = $user->tanggalan()->with('makanan:name,takaran,kalori', 'aktivitas:name,durasi,kalori')->get();
+
+        $tanggal = $user->tanggalan()
+            ->with([
+                'makanan' => function ($query) use ($user) {
+                    $query->select('makanans.name', 'makanans.takaran', 'makanans.kalori')
+                        ->wherePivot('user_id', $user->id);
+                },
+                'aktivitas' => function ($query) use ($user) {
+                    $query->select('aktivitas.name', 'aktivitas.durasi', 'aktivitas.kalori')
+                        ->wherePivot('user_id', $user->id);
+                }
+            ])->get();
 
         // $response = $tanggal->map(function ($t) use ($user) {
         //     return [
@@ -62,10 +74,24 @@ class ShowAllAktivitasMakananController extends Controller
         $sekarang = Carbon::now();
         $cek = $user->tanggalan()->whereDate('tanggal', $sekarang)->first();
         if ($cek) {
+            // $tanggal = $user->tanggalan()
+            //     ->with('makanan:name,takaran,kalori', 'aktivitas:name,durasi,kalori')
+            //     ->whereDate('tanggal', $sekarang)
+            //     ->first();
             $tanggal = $user->tanggalan()
-                ->with('makanan:name,takaran,kalori', 'aktivitas:name,durasi,kalori')
                 ->whereDate('tanggal', $sekarang)
-                ->first();
+                ->with([
+                    'makanan' => function ($query) use ($user, $cek) {
+                        $query->select('makanans.name', 'makanans.takaran', 'makanans.kalori')
+                            ->wherePivot('user_id', $user->id)
+                            ->wherePivot('tanggalan_id', $cek->id);
+                    },
+                    'aktivitas' => function ($query) use ($user, $cek) {
+                        $query->select('aktivitas.name', 'aktivitas.durasi', 'aktivitas.kalori')
+                            ->wherePivot('user_id', $user->id)
+                            ->wherePivot('tanggalan_id', $cek->id);
+                    }
+                ])->first();
             return response()->json([
                 'status' => true,
                 'data' => new AllMakananAktivitasSekarangResource($tanggal)
@@ -83,10 +109,25 @@ class ShowAllAktivitasMakananController extends Controller
         $kemarin = Carbon::yesterday();
         $cek = $user->tanggalan()->whereDate('tanggal', $kemarin)->first();
         if ($cek) {
+            // $tanggal = $user->tanggalan()
+            //     ->with('makanan:name,takaran,kalori', 'aktivitas:name,durasi,kalori')
+            //     ->whereDate('tanggal', $kemarin)
+            //     ->first();
+
             $tanggal = $user->tanggalan()
-                ->with('makanan:name,takaran,kalori', 'aktivitas:name,durasi,kalori')
                 ->whereDate('tanggal', $kemarin)
-                ->first();
+                ->with([
+                    'makanan' => function ($query) use ($user, $cek) {
+                        $query->select('makanans.name', 'makanans.takaran', 'makanans.kalori')
+                            ->wherePivot('user_id', $user->id)
+                            ->wherePivot('tanggalan_id', $cek->id);
+                    },
+                    'aktivitas' => function ($query) use ($user, $cek) {
+                        $query->select('aktivitas.name', 'aktivitas.durasi', 'aktivitas.kalori')
+                            ->wherePivot('user_id', $user->id)
+                            ->wherePivot('tanggalan_id', $cek->id);
+                    }
+                ])->first();
             return response()->json([
                 'status' => true,
                 'data' => new AllMakananAktivitasKemarinResource($tanggal)

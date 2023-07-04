@@ -25,7 +25,9 @@ class AktivitasTanggalanController extends Controller
 
             $date->aktivitas()->attach($aktivitas, ['user_id' => $user->id]);
             // $date->user()->attach($user);
-            // $user->tanggalan()->sync($date);
+            if (!$user->tanggalan()->exists()) {
+                $user->tanggalan()->attach($date);
+            }
             return response()->json([
                 'status' => true,
                 'message' => 'Berhasil Ditambah'

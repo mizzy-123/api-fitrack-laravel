@@ -25,6 +25,9 @@ class MakananTanggalanController extends Controller
             $date->makanan()->attach($makanan, ['user_id' => $user->id]);
             // $date->user()->attach($user);
             // $user->tanggalan()->sync($date);
+            if (!$user->tanggalan()->exists()) {
+                $user->tanggalan()->attach($date);
+            }
             return response()->json([
                 'status' => true,
                 'message' => 'Berhasil Ditambah'
