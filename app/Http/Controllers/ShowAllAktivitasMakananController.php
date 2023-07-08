@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Resources\AllMakananAktivitasKemarinResource;
 use App\Http\Resources\AllMakananAktivitasResource;
 use App\Http\Resources\AllMakananAktivitasSekarangResource;
+use App\Http\Resources\AllTanggalMakananAktivitasResource;
+use App\Http\Resources\Tanggal;
 use App\Models\Tanggalan;
 use App\Models\User;
 use Carbon\Carbon;
@@ -136,6 +138,32 @@ class ShowAllAktivitasMakananController extends Controller
             return response()->json([
                 'status' => false,
                 'message' => 'Data tidak ditemukan'
+            ]);
+        }
+    }
+
+    public function tanggal(User $user)
+    {
+        $data = $user->tanggalan()->get();
+        return response()->json([
+            'status' => true,
+            'data' => Tanggal::collection($data)
+        ]);
+    }
+
+    public function history(Tanggalan $tanggalan, Request $request)
+    {
+        if ($request->filled('email')) {
+
+            $data = $tanggalan->user()->with('makanan', 'aktivitas')->where('email', $request->email)->first();
+            return response()->json([
+                'status' => true,
+                'data' => new AllTanggalMakananAktivitasResource($data)
+            ]);
+        } else {
+            return response()->json([
+                'status' => false,
+                'message' => 'Request get email harus diisi'
             ]);
         }
     }

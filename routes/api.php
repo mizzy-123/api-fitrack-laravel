@@ -60,3 +60,7 @@ Route::post('/location/{location}', [TempatGymController::class, 'update']);
 Route::delete('/location/{location}', [TempatGymController::class, 'destroy']);
 
 Route::get('/location', [TempatGymController::class, 'index']);
+
+Route::get('/all/tanggal/{user:email}', [ShowAllAktivitasMakananController::class, 'tanggal']);
+
+Route::get('/all/tanggal/aktivitas/{tanggalan:tanggal}', [ShowAllAktivitasMakananController::class, 'history']);
