@@ -154,12 +154,30 @@ class ShowAllAktivitasMakananController extends Controller
     public function history(Tanggalan $tanggalan, Request $request)
     {
         if ($request->filled('email')) {
+            $cek = $tanggalan->user()->where('email', $request->email)->first();
+            if ($cek) {
 
-            $data = $tanggalan->user()->with('makanan', 'aktivitas')->where('email', $request->email)->first();
-            return response()->json([
-                'status' => true,
-                'data' => new AllTanggalMakananAktivitasResource($data)
-            ]);
+                $data = $tanggalan->user()->where('email', $request->email)
+                    ->with([
+                        'makanan' => function ($query) use ($tanggalan) {
+                            $query->select('makanans.name', 'makanans.takaran', 'makanans.kalori')
+                                ->wherePivot('tanggalan_id', $tanggalan->id);
+                        },
+                        'aktivitas' => function ($query) use ($tanggalan) {
+                            $query->select('aktivitas.name', 'aktivitas.durasi', 'aktivitas.kalori')
+                                ->wherePivot('tanggalan_id', $tanggalan->id);
+                        }
+                    ])->first();
+                return response()->json([
+                    'status' => true,
+                    'data' => new AllTanggalMakananAktivitasResource($data)
+                ]);
+            } else {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Data tidak ditemukan'
+                ]);
+            }
         } else {
             return response()->json([
                 'status' => false,
