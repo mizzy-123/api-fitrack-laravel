@@ -14,7 +14,8 @@ class MakananTanggalanController extends Controller
     {
         $currentNow = Carbon::now();
 
-        $date = Tanggalan::whereDate('tanggal', $currentNow)->first();
+        // $date = Tanggalan::whereDate('tanggal', $currentNow)->first();
+        $date = $user->tanggalan()->whereDate('tanggal', $currentNow)->first();
         if ($date) {
             $makanan = new Makanan;
             $makanan->name = $request->name;
@@ -25,7 +26,10 @@ class MakananTanggalanController extends Controller
             $date->makanan()->attach($makanan, ['user_id' => $user->id]);
             // $date->user()->attach($user);
             // $user->tanggalan()->sync($date);
-            if (!$user->tanggalan()->exists()) {
+            // if (!$user->tanggalan()->exists()) {
+            //     $user->tanggalan()->attach($date);
+            // }
+            if (!$date) {
                 $user->tanggalan()->attach($date);
             }
             return response()->json([
@@ -33,9 +37,18 @@ class MakananTanggalanController extends Controller
                 'message' => 'Berhasil Ditambah'
             ]);
         } else {
-            $newDate = Tanggalan::create([
-                'tanggal' => $currentNow
-            ]);
+            // $newDate = Tanggalan::create([
+            //     'tanggal' => $currentNow
+            // ]);
+
+            $cek = Tanggalan::whereDate('tanggal', $currentNow)->first();
+            if (!$cek) {
+                $newDate = Tanggalan::create([
+                    'tanggal' => $currentNow
+                ]);
+            } else {
+                $newDate = $cek;
+            }
 
             $makanan = new Makanan;
             $makanan->name = $request->name;

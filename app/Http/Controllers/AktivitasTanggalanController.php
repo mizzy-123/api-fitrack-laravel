@@ -15,7 +15,8 @@ class AktivitasTanggalanController extends Controller
     {
         $currentNow = Carbon::now();
 
-        $date = Tanggalan::whereDate('tanggal', $currentNow)->first();
+        $date = $user->tanggalan()->whereDate('tanggal', $currentNow)->first();
+        // $user->tanggalan()->exists()
         if ($date) {
             $aktivitas = new Aktivitas;
             $aktivitas->name = $request->name;
@@ -25,7 +26,7 @@ class AktivitasTanggalanController extends Controller
 
             $date->aktivitas()->attach($aktivitas, ['user_id' => $user->id]);
             // $date->user()->attach($user);
-            if (!$user->tanggalan()->exists()) {
+            if (!$date) {
                 $user->tanggalan()->attach($date);
             }
             return response()->json([
@@ -33,9 +34,14 @@ class AktivitasTanggalanController extends Controller
                 'message' => 'Berhasil Ditambah'
             ]);
         } else {
-            $newDate = Tanggalan::create([
-                'tanggal' => $currentNow
-            ]);
+            $cek = Tanggalan::whereDate('tanggal', $currentNow)->first();
+            if (!$cek) {
+                $newDate = Tanggalan::create([
+                    'tanggal' => $currentNow
+                ]);
+            } else {
+                $newDate = $cek;
+            }
 
             $aktivitas = new Aktivitas;
             $aktivitas->name = $request->name;
